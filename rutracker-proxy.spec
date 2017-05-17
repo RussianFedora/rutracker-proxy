@@ -8,10 +8,10 @@ Summary:        Proxy for rutracker
 
 License:        MIT
 URL:            https://github.com/zhulik/rutracker-proxy
-Source0:        https://github.com/zhulik/rutracker-proxy/tarball/%{gitcommit_full}
+Source0:        https://github.com/zhulik/rutracker-proxy/tarball/%{gitcommit_full}#/%{name}-%{shortcommit}.tar.gz
 Source1:        %{name}.service
-Source2:        https://github.com/elazarl/goproxy/tarball/master
-Source3:        net.tar.gz
+Source2:        https://github.com/elazarl/goproxy/tarball/master#/goproxy.tar.gz
+Source3:        https://github.com/golang/net/tarball/master#/net.tar.gz
 
 BuildRequires:  golang
 BuildRequires:  go-compilers-golang-compiler
@@ -32,7 +32,8 @@ tar -xvf %{SOURCE2}
 mv elazarl-goproxy* src/github.com/elazarl/goproxy
 
 mkdir -p src/golang.org/x/
-tar -xvf %{SOURCE3} -C src/golang.org/x/
+tar -xvf %{SOURCE3}
+mv golang* src/golang.org/x/net
 
 %build
 export GOPATH=$(pwd):%{gopath}
