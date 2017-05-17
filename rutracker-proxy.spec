@@ -4,7 +4,7 @@
 
 Name:           rutracker-proxy
 Version:        0.1
-Release:        0.1.%{gitdate}git%{gitcommit}%{?dist}
+Release:        0.2.%{gitdate}git%{gitcommit}%{?dist}
 Summary:        Proxy for rutracker
 
 License:        MIT
@@ -62,5 +62,8 @@ install -p -D -m 644 %{SOURCE1}  %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Tue May 16 2017 vascom <vascom2@gmail.com> - 0.1-0.2.20170517gitfd888d5
+- Update sources and improve spec
+
 * Tue May 16 2017 vascom <vascom2@gmail.com> - 0.1-0.1.20170517gita15e53d
 - Initial packaging
