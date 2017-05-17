@@ -1,0 +1,10 @@
+[Unit]
+Description=rutracker-proxy Server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rutracker-proxy
+
+[Install]
+WantedBy=multi-user.target
