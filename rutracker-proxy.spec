@@ -1,4 +1,4 @@
-%global gitcommit_full fe41b1b8e224dc033b98c0d55129baf0c8a1eae8
+%global gitcommit_full fd888d57a717476a41b09fe4e7445238b777df78
 %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
 %global gitdate 20170517
 
