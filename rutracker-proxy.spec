@@ -6,10 +6,12 @@ Version:        0.1
 Release:        0.1.git%{gitcommit}%{?dist}
 Summary:        Proxy for rutracker
 
-License:        GPLv3+
+License:        MIT
 URL:            https://github.com/zhulik/rutracker-proxy
 Source0:        https://github.com/zhulik/rutracker-proxy/tarball/%{gitcommit_full}
 Source1:        %{name}.service
+Source2:        https://github.com/elazarl/goproxy/tarball/master
+Source3:        net.tar.gz
 
 BuildRequires:  golang
 BuildRequires:  go-compilers-golang-compiler
@@ -22,11 +24,18 @@ Tool for proxying client's announces to blocked tracker servers.
 
 %prep
 %autosetup -n zhulik-%{name}-%{gitcommit}
+mkdir -p src/github.com/zhulik/rutracker-proxy
+mv selector src/github.com/zhulik/rutracker-proxy/
 
+mkdir -p src/github.com/elazarl
+tar -xvf %{SOURCE2}
+mv elazarl-goproxy* src/github.com/elazarl/goproxy
+
+mkdir -p src/golang.org/x/
+tar -xvf %{SOURCE3} -C src/golang.org/x/
 
 %build
-go get github.com/elazarl/goproxy
-go get github.com/zhulik/rutracker-proxy/selector
+export GOPATH=$(pwd):%{gopath}
 %gobuild
 
 
