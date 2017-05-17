@@ -1,9 +1,10 @@
-%global gitcommit_full a15e53d8bd2cce479093844a79fdbaa155cd2d08
+%global gitcommit_full fd888d57a717476a41b09fe4e7445238b777df78
 %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
+%global gitdate 20170517
 
 Name:           rutracker-proxy
 Version:        0.1
-Release:        0.1.git%{gitcommit}%{?dist}
+Release:        0.1.%{gitdate}git%{gitcommit}%{?dist}
 Summary:        Proxy for rutracker
 
 License:        MIT
@@ -54,10 +55,12 @@ install -p -D -m 644 %{SOURCE1}  %{buildroot}%{_unitdir}/%{name}.service
 %systemd_postun_with_restart %{name}.service
 
 %files
+%doc README.md
+%license LICENSE
 %{_bindir}/%{name}
 %{_unitdir}/%{name}.service
 
 
 %changelog
-* Tue May 16 2017 vascom <vascom2@gmail.com> - 0.1-0.1.gita15e53d
+* Tue May 16 2017 vascom <vascom2@gmail.com> - 0.1-0.1.20170517gita15e53d
 - Initial packaging
