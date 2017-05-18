@@ -1,10 +1,10 @@
-%global gitcommit_full fd888d57a717476a41b09fe4e7445238b777df78
+%global gitcommit_full a1cc110c8fb8ba7cae4ef4814fbdde6a13e69d3e
 %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
 %global gitdate 20170517
 
 Name:           rutracker-proxy
 Version:        0.1
-Release:        0.2.%{gitdate}git%{gitcommit}%{?dist}
+Release:        0.3.%{gitdate}git%{gitcommit}%{?dist}
 Summary:        Proxy for rutracker
 
 License:        MIT
@@ -62,6 +62,9 @@ install -p -D -m 644 %{SOURCE1}  %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Thu May 18 2017 vascom <vascom2@gmail.com> - 0.1-0.3.20170517gita1cc110
+- Update sources
+
 * Tue May 16 2017 vascom <vascom2@gmail.com> - 0.1-0.2.20170517gitfd888d5
 - Update sources and improve spec
 
