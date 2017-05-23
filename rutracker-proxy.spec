@@ -4,7 +4,7 @@
 
 Name:           rutracker-proxy
 Version:        0.1
-Release:        0.3.%{gitdate}git%{gitcommit}%{?dist}
+Release:        0.4.%{gitdate}git%{gitcommit}%{?dist}
 Summary:        Proxy for rutracker
 
 License:        MIT
@@ -13,6 +13,7 @@ Source0:        https://github.com/zhulik/rutracker-proxy/tarball/%{gitcommit_fu
 Source1:        %{name}.service
 Source2:        https://github.com/elazarl/goproxy/tarball/master#/goproxy.tar.gz
 Source3:        https://github.com/golang/net/tarball/master#/net.tar.gz
+Source4:        %{name}.conf
 
 BuildRequires:  golang
 BuildRequires:  go-compilers-golang-compiler
@@ -44,6 +45,7 @@ export GOPATH=$(pwd):%{gopath}
 %install
 install -p -D -m 755 zhulik-%{name}-%{gitcommit} %{buildroot}%{_bindir}/%{name}
 install -p -D -m 644 %{SOURCE1}  %{buildroot}%{_unitdir}/%{name}.service
+install -p -D -m 644 %{SOURCE4}  %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 
 %post
 %systemd_post %{name}.service
@@ -57,11 +59,15 @@ install -p -D -m 644 %{SOURCE1}  %{buildroot}%{_unitdir}/%{name}.service
 %files
 %doc README.md
 %license LICENSE
+%config(noreplace) %{_sysconfdir}/%{name}
 %{_bindir}/%{name}
 %{_unitdir}/%{name}.service
 
 
 %changelog
+* Tue May 23 2017 vascom <vascom2@gmail.com> - 0.1-0.4.20170517gita1cc110
+- Added config file
+
 * Thu May 18 2017 vascom <vascom2@gmail.com> - 0.1-0.3.20170517gita1cc110
 - Update sources
 
