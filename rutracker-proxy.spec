@@ -14,6 +14,7 @@ Source1:        %{name}.service
 Source2:        https://github.com/elazarl/goproxy/tarball/master#/goproxy.tar.gz
 Source3:        https://github.com/golang/net/tarball/master#/net.tar.gz
 Source4:        %{name}.conf
+Patch0:         %{name}-1.5-1.8build.patch
 
 BuildRequires:  golang
 BuildRequires:  go-compilers-golang-compiler

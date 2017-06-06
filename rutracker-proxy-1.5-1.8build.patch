@@ -1,0 +1,59 @@
+diff -uNdr rutracker-proxy-0.1.0.orig/gethostname_18.go rutracker-proxy-0.1.0/gethostname_18.go
+--- rutracker-proxy-0.1.0.orig/gethostname_18.go	1970-01-01 03:00:00.000000000 +0300
++++ rutracker-proxy-0.1.0/gethostname_18.go	2017-06-06 15:55:53.452643649 +0300
+@@ -0,0 +1,12 @@
++// +build go1.8
++
++package main
++
++import (
++	"net/url"
++)
++
++// this is workaround  block for go < 1.8
++func getHostname(u *url.URL) string {
++	return u.Hostname()
++}
+diff -uNdr rutracker-proxy-0.1.0.orig/gethostname.go rutracker-proxy-0.1.0/gethostname.go
+--- rutracker-proxy-0.1.0.orig/gethostname.go	1970-01-01 03:00:00.000000000 +0300
++++ rutracker-proxy-0.1.0/gethostname.go	2017-06-06 15:55:37.476415491 +0300
+@@ -0,0 +1,25 @@
++// +build go1.5, go1.6, go1.7, !go1.8
++
++package main
++
++import (
++	"net/url"
++	"strings"
++)
++
++// this is workaround  block for go < 1.8
++func getHostname(u *url.URL) string {
++	return stripPost(u)
++}
++
++func stripPost(u *url.URL) string {
++	hostport := u.Host
++	colon := strings.IndexByte(hostport, ':')
++	if colon == -1 {
++		return hostport
++	}
++	if i := strings.IndexByte(hostport, ']'); i != -1 {
++		return strings.TrimPrefix(hostport[:i], "[")
++	}
++	return hostport[:colon]
++}
+diff -uNdr rutracker-proxy-0.1.0.orig/proxy.go rutracker-proxy-0.1.0/proxy.go
+--- rutracker-proxy-0.1.0.orig/proxy.go	2017-06-06 15:08:22.279177134 +0300
++++ rutracker-proxy-0.1.0/proxy.go	2017-06-06 15:54:48.873721392 +0300
+@@ -17,7 +17,8 @@
+ 	proxy := goproxy.NewProxyHttpServer()
+ 	go rotateTransport(p, proxy, (time.Duration(rotationTimeout))*time.Minute)
+ 	proxy.OnRequest().DoFunc(func(req *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
+-		if rutrackerHostsRE.MatchString(req.URL.Hostname()) {
++		hostname := getHostname(req.URL)
++		if rutrackerHostsRE.MatchString(hostname) {
+ 			log.Printf("Querying to %s through proxy...", req.URL)
+ 			resp, err := ctx.RoundTrip(req)
+ 			if err != nil {
+Binary files rutracker-proxy-0.1.0.orig/rutracker-proxy-0.1.0 and rutracker-proxy-0.1.0/rutracker-proxy-0.1.0 differ
