@@ -26,7 +26,7 @@ ExclusiveArch:  %{go_arches}
 Tool for proxying client's announces to blocked tracker servers.
 
 %prep
-%autosetup -n %{name}-master
+%autosetup
 mkdir -p src/github.com/zhulik/rutracker-proxy
 mv selector src/github.com/zhulik/rutracker-proxy/
 
