@@ -9,7 +9,7 @@ Summary:        Proxy for rutracker
 
 License:        MIT
 URL:            https://github.com/zhulik/rutracker-proxy
-Source0:        %{url}/archive/%{name}-master.zip
+Source0:        %{url}/archive/%{version}.tar.gz
 Source1:        %{name}.service
 Source2:        https://github.com/elazarl/goproxy/tarball/master#/goproxy.tar.gz
 Source3:        https://github.com/golang/net/tarball/master#/net.tar.gz
