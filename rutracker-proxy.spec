@@ -44,7 +44,7 @@ export GOPATH=$(pwd):%{gopath}
 
 
 %install
-install -p -D -m 755 %{name}-master %{buildroot}%{_bindir}/%{name}
+install -p -D -m 755 %{name}-%{version} %{buildroot}%{_bindir}/%{name}
 install -p -D -m 644 %{SOURCE1}  %{buildroot}%{_unitdir}/%{name}.service
 install -p -D -m 644 %{SOURCE4}  %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 
