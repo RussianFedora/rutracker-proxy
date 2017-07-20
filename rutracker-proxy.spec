@@ -18,7 +18,7 @@ Source4:        %{name}.conf
 
 BuildRequires:  golang
 BuildRequires:  go-compilers-golang-compiler
-BuildRequires:  pkgconfig(systemd)
+BuildRequires:  systemd
 
 ExclusiveArch:  %{go_arches}
 
