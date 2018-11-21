@@ -1,20 +1,19 @@
-# %global gitcommit_full a1cc110c8fb8ba7cae4ef4814fbdde6a13e69d3e
-# %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
-# %global gitdate 20170517
+%global gitcommit_full 46bbd8723a367ad45248df2fafc3dd73ca23961d
+%global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
+%global gitdate 20181121
 
 Name:           rutracker-proxy
-Version:        0.2.0
-Release:        1%{?dist}
+Version:        0.2.1
+Release:        0.1.%{gitdate}git%{gitcommit}%{?dist}
 Summary:        Proxy for rutracker
 
 License:        MIT
 URL:            https://github.com/zhulik/rutracker-proxy
-Source0:        %{url}/archive/%{version}.tar.gz
+Source0:        %{url}/tarball/%{gitcommit_full}
 Source1:        %{name}.service
 Source2:        https://github.com/elazarl/goproxy/tarball/master#/goproxy.tar.gz
 Source3:        https://github.com/golang/net/tarball/master#/net.tar.gz
 Source4:        %{name}.conf
-#Patch0:         %{name}-1.5-1.8build.patch
 
 BuildRequires:  golang
 BuildRequires:  go-compilers-golang-compiler
@@ -26,7 +25,7 @@ ExclusiveArch:  %{go_arches}
 Tool for proxying client's announces to blocked tracker servers.
 
 %prep
-%autosetup
+%autosetup -n zhulik-%{name}-%{gitcommit}
 mkdir -p src/github.com/zhulik/rutracker-proxy
 mv selector src/github.com/zhulik/rutracker-proxy/
 
@@ -44,7 +43,7 @@ export GOPATH=$(pwd):%{gopath}
 
 
 %install
-install -p -D -m 755 %{name}-%{version} %{buildroot}%{_bindir}/%{name}
+install -p -D -m 755 zhulik-%{name}-%{gitcommit} %{buildroot}%{_bindir}/%{name}
 install -p -D -m 644 %{SOURCE1}  %{buildroot}%{_unitdir}/%{name}.service
 install -p -D -m 644 %{SOURCE4}  %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 
@@ -66,6 +65,9 @@ install -p -D -m 644 %{SOURCE4}  %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 
 
 %changelog
+* Wed Nov 21 2018 Vasiliy N. Glazov <vascom2@gmail.com> - 0.2.1-0.1.20181121git46bbd87
+- Update to latest git
+
 * Wed Jul 05 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 0.2.0-1
 - Update to 0.2.0
 
